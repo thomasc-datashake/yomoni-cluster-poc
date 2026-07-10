@@ -2,7 +2,7 @@
 <meta name="robots" content="noindex, nofollow"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Clusters de mots-clés</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#F3EDE8;--surface:#FAF6F2;--card:#FFFFFF;--ink:#101010;--ink2:#5C5C5C;--ink3:#8A8A8A;
 --line:#E8E2DC;--green:#2D8C5A;--amber:#D4890E;--red:#C94040;--radius:10px;}
@@ -75,10 +75,26 @@ td.pg a{color:var(--green);}
 .selbox{width:15px;height:15px;cursor:pointer;}
 .rowsel{background:#2D8C5A12 !important;}
 @media print{.sidebar,.toolbar,#tip,#legend{display:none!important;}.app{display:block;}.main{padding:0!important;}.right{width:100%!important;}.body2{display:block;}.tbl-wrap{max-height:none!important;}tr,.card,.panel{break-inside:avoid;}}
+
+/* ===== DA Content Optimizer ===== */
+:root{--accent:#ADAC2F;--accent-ink:#7E7D22;--serif:'Fraunces',Georgia,'Times New Roman',serif;--mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;}
+.logo{display:flex;align-items:center;gap:7px !important;font-weight:600;color:var(--ink);}
+.logo .lw{font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1;}
+.logo .mk{width:0;height:20px;background:none !important;border-radius:0 !important;color:var(--ink) !important;font-size:0 !important;display:inline-flex;align-items:center;overflow:visible;margin-left:5px;}
+.logo .mk svg{width:12px;height:12px;display:block;}
+.logo .ld{width:1px;height:16px;background:var(--line);margin:0 4px;display:inline-block;}
+.logo .ls{font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--ink);}
+.navlabel,.eyebrow,.card .l,.pm span,.panel h2,th,.pd,.pu,.userbox .em{font-family:var(--mono) !important;letter-spacing:.04em;}
+.eyebrow{display:flex;align-items:center;gap:7px;text-transform:uppercase;}
+.ebd{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;flex:0 0 auto;}
+.nav a.on{border-left-color:var(--accent) !important;}
+.po{color:var(--accent-ink) !important;}
+h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent-ink);letter-spacing:0;}
+h1 .dot{color:var(--accent-ink) !important;font-family:var(--serif);font-style:italic;}
 </style></head><body>
 <div class="app">
 <aside class="sidebar">
-  <div class="logo"><span class="mk">◆</span> Cluster Map</div>
+  <div class="logo"><span class="lw">datashake</span><span class="mk"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 58.0954C0 52.6106 4.4208 48.1475 9.90547 48.1065C21.3582 48.0209 30.4387 48.0052 42.0095 48.0022C42.8693 48.002 43.7267 47.8913 44.5577 47.6708C44.5986 47.66 44.6395 47.6491 44.6804 47.6383C49.0177 46.4866 52.0055 42.5438 52.0049 38.0563L52.0013 10.0013C52.0006 4.47793 56.478 0 62.0013 0H90C95.5229 0 100 4.47716 100 10V42C100 47.5229 95.5229 52 90 52H58.2002L57.1548 52.0887C51.9782 52.5278 48 56.8577 48 62.0529V90C48 95.5228 43.5229 100 38 100H10C4.47716 100 0 95.5228 0 90V58.0954Z" fill="currentColor"/></svg></span><span class="ld"></span><span class="ls">Cluster Map</span></div>
   <a id="nav-home" href="../index.html" style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink2);text-decoration:none;margin:0 4px 12px;">← Tous les projets</a>
   <div class="navlabel">Vues de l'étude</div>
   <nav class="nav">
@@ -93,7 +109,7 @@ td.pg a{color:var(--green);}
   <div class="userbox"><div class="av">TC</div><div><div class="nm">Consultant SEO</div><div class="em">datashake</div></div></div>
 </aside>
 <main class="main">
-  <div class="eyebrow"><span style="color:var(--green)">✱</span> Client</div>
+  <div class="eyebrow"><span class="ebd"></span> Client</div>
   <h1>Yomoni<span class="dot">.</span></h1>
   <p class="url">https://www.yomoni.fr</p>
   <div class="cards">

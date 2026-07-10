@@ -582,4 +582,58 @@ if(EMBED){
 updateBasket();refresh();
 if(PROXY){tryLoadFolders();tryLoadExisting();}
 else if(!CLIENT_MODE&&!EMBED&&rsKey()){probeCors();tryLoadFolders();tryLoadExisting();}
+</script><script id="cm-gate">
+(()=>{
+const SALT='cm-datashake-v1',HASH='2a1dc41d1f51771918a32441c2bc31da2b5e5c0e70e554c6f4d8309851cc1095',KEY='cm_auth_v1',TTL=6048e5;
+const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+const sha=async s=>hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)));
+let ok=false;
+try{const t=JSON.parse(localStorage.getItem(KEY)||'null');
+if(t&&t.h===HASH&&t.exp>Date.now()&&/@datashake\.fr$/i.test(t.email||''))ok=true;}catch(e){}
+if(!ok){const hs=document.createElement('style');hs.id='cm-gate-hide';
+hs.textContent='body>*:not(#cm-gate-ov){visibility:hidden!important}';
+document.head.appendChild(hs);}
+const css=`#cm-gate-ov{position:fixed;inset:0;z-index:99999;background:#F3EDE8;display:flex;align-items:center;justify-content:center;font-family:Inter,-apple-system,sans-serif;color:#101010;visibility:visible!important}
+#cm-gate-ov *{visibility:visible!important;box-sizing:border-box}
+#cm-gate-ov .bx{width:min(400px,92vw);background:#fff;border:2px solid #E8E2DC;border-radius:16px;padding:34px 36px}
+#cm-gate-ov .eb{display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8A8A8A;margin-bottom:10px}
+#cm-gate-ov .eb i{width:6px;height:6px;border-radius:50%;background:#ADAC2F;font-style:normal}
+#cm-gate-ov h1{font-size:30px;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+#cm-gate-ov h1 em{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:400;color:#7E7D22}
+#cm-gate-ov p{color:#5C5C5C;font-size:13.5px;margin:0 0 18px}
+#cm-gate-ov label{display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8A8A8A;margin:0 0 6px}
+#cm-gate-ov input{width:100%;font-size:14px;padding:11px 13px;border:2px solid #E8E2DC;border-radius:10px;background:#FAF6F2;color:#101010;font-family:inherit;margin-bottom:13px}
+#cm-gate-ov input:focus{outline:none;border-color:#101010}
+#cm-gate-ov button{width:100%;font-size:14px;font-weight:600;padding:12px;border:0;border-radius:10px;background:#101010;color:#fff;cursor:pointer;font-family:inherit}
+#cm-gate-ov button:hover{opacity:.92}
+#cm-gate-ov .er{color:#C94040;font-size:12.5px;min-height:17px;margin:0 0 8px}
+#cm-gate-ov .ft{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;color:#8A8A8A;text-align:center;margin-top:16px}`;
+function brand(){try{const t=JSON.parse(localStorage.getItem(KEY)||'null');if(!t||!t.email)return;
+const em=document.querySelector('.userbox .em');if(em)em.textContent=t.email;
+const av=document.querySelector('.userbox .av');if(av)av.textContent=t.email.slice(0,2).toUpperCase();
+const nm=document.querySelector('.userbox .nm');if(nm)nm.textContent=t.email.split('@')[0].replace(/[._]/g,' ').replace(/(^|\s)\S/g,c=>c.toUpperCase());
+const ub=document.querySelector('.userbox');
+if(ub&&!document.getElementById('cm-logout')){const a=document.createElement('a');
+a.id='cm-logout';a.textContent='Déconnexion';a.href='#';
+a.style.cssText='display:block;font-size:11.5px;color:#8A8A8A;margin:6px 8px 0;text-decoration:none;cursor:pointer';
+a.onclick=e=>{e.preventDefault();localStorage.removeItem(KEY);location.reload();};
+ub.after(a);}}catch(e){}}
+function gate(){
+const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+const ov=document.createElement('div');ov.id='cm-gate-ov';
+ov.innerHTML='<div class="bx"><div class="eb"><i></i>Connexion</div><h1>Bon retour<em>.</em></h1><p>Accès réservé à l\'équipe datashake. Connecte-toi pour ouvrir les études.</p><form id="cm-gate-f"><label>Email</label><input id="cm-ge" type="email" placeholder="toi@datashake.fr" autocomplete="username"><label>Mot de passe</label><input id="cm-gp" type="password" placeholder="••••••••" autocomplete="current-password"><div class="er" id="cm-gr"></div><button type="submit">Se connecter →</button></form><div class="ft">datashake · Cluster Map</div></div>';
+document.body.appendChild(ov);
+document.getElementById('cm-gate-f').addEventListener('submit',async ev=>{ev.preventDefault();
+const e=(document.getElementById('cm-ge').value||'').trim().toLowerCase();
+const p=document.getElementById('cm-gp').value||'';
+const r=document.getElementById('cm-gr');
+if(!/^[a-z0-9._%+-]+@datashake\.fr$/.test(e)){r.textContent='Adresse @datashake.fr requise.';return;}
+if(!crypto.subtle){r.textContent='Contexte non sécurisé (ouvrir en https, file:// ou localhost).';return;}
+if(await sha(SALT+':'+p)!==HASH){r.textContent='Mot de passe incorrect.';return;}
+localStorage.setItem(KEY,JSON.stringify({email:e,h:HASH,exp:Date.now()+TTL}));
+document.getElementById('cm-gate-hide')?.remove();ov.remove();brand();});
+document.getElementById('cm-ge').focus();}
+const run=()=>{ok?brand():gate();};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();
 </script></body></html>
